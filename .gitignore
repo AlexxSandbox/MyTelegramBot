@@ -7,6 +7,10 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+currency_request.py
+simple_bot.py
+weather_test.py
+example_bot.py
 .Python
 .idea
 .env

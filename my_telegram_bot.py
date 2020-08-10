@@ -23,7 +23,8 @@ def start(update, context):
 def help(update, context):
     update.message.reply_text('Вот что я умею!\n'
                               'Чтобы узнать погоду, набери /weather и добавь '
-                              'город.')
+                              'город. Например /weather Тюмень.\n'
+                              'Чтобы узнать текущий курс валют, набери /currency.')
 
 
 def weather(update, context):
@@ -45,6 +46,19 @@ def weather(update, context):
     update.message.reply_text(result)
 
 
+def currency(update, context):
+    url = 'https://www.cbr-xml-daily.ru/daily_json.js'
+    response = requests.get(url).json()
+    usd_currency = response['Valute']['USD']['Value']
+    eur_currency = response['Valute']['EUR']['Value']
+    currency_date = response['Date'].split('T')[0]
+    result = f'Курс валют на {currency_date}.' \
+             f'1 USD={usd_currency} руб.' \
+             f'1 EUR={eur_currency} руб.'
+
+    update.message.reply_text(result)
+
+
 def unknown(update, context):
     update.message.reply_text('Моя твоя не понимать, набери /help, чтобы понимать.')
 
@@ -61,6 +75,7 @@ def main():
     dispather.add_handler(CommandHandler('start', start))
     dispather.add_handler(CommandHandler('help', help))
     dispather.add_handler(CommandHandler('weather', weather))
+    dispather.add_handler(CommandHandler('currency', currency))
     dispather.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
     dispather.add_handler(MessageHandler(Filters.command, unknown))
 

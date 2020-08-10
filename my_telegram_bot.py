@@ -52,9 +52,9 @@ def currency(update, context):
     usd_currency = response['Valute']['USD']['Value']
     eur_currency = response['Valute']['EUR']['Value']
     currency_date = response['Date'].split('T')[0]
-    result = f'Курс валют на {currency_date}.' \
-             f'1 USD={usd_currency} руб.' \
-             f'1 EUR={eur_currency} руб.'
+    result = f'Курс валют на {currency_date}.\n' \
+             f'1 USD={usd_currency:.2f} руб.\n' \
+             f'1 EUR={eur_currency:.2f} руб.'
 
     update.message.reply_text(result)
 

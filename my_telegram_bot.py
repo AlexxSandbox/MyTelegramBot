@@ -28,7 +28,10 @@ def help(update, context):
 
 
 def weather(update, context):
-    city_request = ' '.join(context.args).capitalize()
+    if context.args:
+        city_request = ' '.join(context.args).capitalize()
+    else:
+        city_request = 'Tyumen'
     url = 'http://wttr.in/{}?format=j1&lang=ru'
     response = requests.get(url.format(city_request)).json()
 
@@ -38,7 +41,7 @@ def weather(update, context):
     humidity_today = response['current_condition'][0]['humidity']
     wind_today = response['current_condition'][0]['windspeedKmph']
 
-    result = f'Сейчас на улице {weather_today}.\n' \
+    result = f'Сейчас в {city_request} {weather_today}.\n' \
              f'Температура по ощущениям: {temperature_feels}℃.\n' \
              f'Влажность: {humidity_today}%.\n' \
              f'Скорость ветра: {wind_today} км/ч.'

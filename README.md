@@ -18,6 +18,9 @@ So far only the simplest queries:
 - current weather in any city
 - exchange rate in Russian Central bank
 
+Ideas:
+- control my car (engine/lock/unlock)
+
 #### Source
 
 python-telegram-bot
